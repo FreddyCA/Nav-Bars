@@ -13,13 +13,22 @@ const ListStyle = styled.ul`
 `;
 
 const ListItemsStyle = styled.li`
-  background-color: var(--color-hookersGreen);
   color: var(--color-azure);
-  margin: 0 1rem;
+  margin: 0 0.5rem;
   padding: 1rem;
   white-space: nowrap;
   height: max-content;
-  
+  font-weight: 700;
+  font-size: 1.175rem;
+  border-bottom: 2px solid var(--color-hookersGreen);
+  box-sizing: border-box;
+  border-radius: 5px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-azure);
+    color: var(--color-hookersGreen);
+  }
 `;
 
 const Menu = ({ data }) => {

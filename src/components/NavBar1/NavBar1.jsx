@@ -11,18 +11,20 @@ const NavBar1Style = styled.div`
   padding: 0 2rem;
 `;
 
-const NavBar1 = ({ data }) => {
-  console.log(data);
+const NavBar1 = ({ data, desktop }) => {
+  // console.log(data);
+  console.log(desktop)
   return (
     <NavBar1Style>
       <Logo></Logo>
-      <Menu data={data}></Menu>
+      {desktop && <Menu data={data}></Menu>}
     </NavBar1Style>
   );
 };
 
 NavBar1.propTypes = {
   data: PropTypes.array.isRequired,
+  desktop: PropTypes.bool.isRequired,
 };
 
 export default NavBar1;
