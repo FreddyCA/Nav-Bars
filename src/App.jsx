@@ -5,13 +5,11 @@ import GlobalStyle from "./style/reset";
 
 const App = () => {
 
-  const [width, setWidth] = useState(window.innerWidth);
   const [desktop, setDesktop] = useState(null);
 
   useEffect(() => {
     const handleResize = () => {
       const newWidth = window.innerWidth;
-      setWidth(newWidth);
 
       if (newWidth > 992) {
         setDesktop(true);
@@ -22,18 +20,17 @@ const App = () => {
 
     handleResize();
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   return (
     <>
       <GlobalStyle />
-      {desktop !== null && <NavBar1 desktop={desktop} data={dataNavBar}/>}
-      
+      {desktop !== null && <NavBar1 desktop={desktop} data={dataNavBar} />}
     </>
   );
 };

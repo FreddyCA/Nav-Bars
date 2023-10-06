@@ -12,12 +12,10 @@ const NavBar1Style = styled.div`
 `;
 
 const NavBar1 = ({ data, desktop }) => {
-  // console.log(data);
-  console.log(desktop)
   return (
     <NavBar1Style>
       <Logo></Logo>
-      {desktop && <Menu data={data}></Menu>}
+      <Menu data={data} desktop={desktop}></Menu>
     </NavBar1Style>
   );
 };

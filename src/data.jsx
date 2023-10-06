@@ -1,27 +1,27 @@
 const dataNavBar = [
   {
     title: "Home",
-    url: "#",
+    url: "#Home",
   },
   {
     title: "Services",
-    url: "#",
+    url: "#Services",
   },
   {
     title: "Products",
-    url: "#",
+    url: "#Products",
   },
   {
     title: "Contact",
-    url: "#",
+    url: "#Contact",
   },
   {
     title: "Sign in",
-    url: "#",
+    url: "#SignIn",
   },
   {
     title: "Sign up",
-    url: "#",
+    url: "#SignUp",
   },
 ];
 
