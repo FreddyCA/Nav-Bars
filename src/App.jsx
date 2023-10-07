@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import NavBar1 from "./components/NavBar1/NavBar1";
 import dataNavBar from "./data";
 import GlobalStyle from "./style/reset";
+import NavBar2 from "./components/NavBar2/NavBar2";
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
     <>
       <GlobalStyle />
       {desktop !== null && <NavBar1 desktop={desktop} data={dataNavBar} />}
+      <NavBar2></NavBar2>
     </>
   );
 };
