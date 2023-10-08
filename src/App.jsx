@@ -32,7 +32,7 @@ const App = () => {
     <>
       <GlobalStyle />
       {desktop !== null && <NavBar1 desktop={desktop} data={dataNavBar} />}
-      <NavBar2></NavBar2>
+      {desktop !== null && <NavBar2 data={dataNavBar} desktop={desktop} />}
     </>
   );
 };
