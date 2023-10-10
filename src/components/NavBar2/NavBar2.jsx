@@ -18,7 +18,7 @@ const NavBar2 = ({ data, desktop }) => {
   return (
     <NavBar2Styled>
       <LogoContent></LogoContent>
-      <Menu data={data}></Menu>
+      <Menu data={data} desktop={desktop}></Menu>
     </NavBar2Styled>
   );
 };

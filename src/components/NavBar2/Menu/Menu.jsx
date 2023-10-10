@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
+import { useState } from "react";
+import IconMenu from "../IconMenu/IconMenu";
 
 const MenuStyle = styled.div`
   height: 100px;
@@ -11,7 +13,7 @@ const MenuStyle = styled.div`
     background-color: yellow;
     position: absolute;
     right: 0;
-    width: 400px;
+    width: 300px;
     height: auto;
     flex-direction: column;
   }
@@ -23,10 +25,19 @@ const ItemContentStyle = styled.div`
   margin: 0 0.5rem;
   display: flex;
   align-items: center;
+
+  
   @media screen and (max-width: 992px) {
     width: 100%;
     height: 50px;
     justify-content: center;
+
+    ${(props) =>
+      props.$estadoMenu &&
+      css`
+        background-color: red;
+        display: none;
+      `}
   }
 `;
 
@@ -49,6 +60,7 @@ const ItemTitleStyle = styled.a`
   @media screen and (max-width: 992px) {
     width: 100%;
     justify-content: center;
+    background-color: blue;
   }
 
   ${(props) =>
@@ -85,15 +97,21 @@ const ItemTitleStyle = styled.a`
         color: var(--color-azure);
       }
     `}
-
- 
 `;
 
-const Menu = ({ data }) => {
+const Menu = ({ data, desktop }) => {
+  console.log(desktop);
+
+  const [estado, setEstado] = useState(true);
+  const togleEstado = () => {
+    setEstado(!estado);
+  };
   return (
     <MenuStyle>
+      {!desktop && <IconMenu onClick={togleEstado} estado={estado} />}
+
       {data.map((item, index) => (
-        <ItemContentStyle key={index}>
+        <ItemContentStyle key={index} $estadoMenu={estado}>
           <ItemTitleStyle $isLast={index === data.length - 1} href={item.url}>
             {item.title}
           </ItemTitleStyle>
@@ -105,7 +123,7 @@ const Menu = ({ data }) => {
 
 Menu.propTypes = {
   data: PropTypes.array.isRequired,
-  // desktop: PropTypes.bool.isRequired,
+  desktop: PropTypes.bool.isRequired,
 };
 
 export default Menu;
