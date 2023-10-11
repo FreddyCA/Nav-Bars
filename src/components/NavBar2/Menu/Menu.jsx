@@ -5,12 +5,10 @@ import IconMenu from "../IconMenu/IconMenu";
 
 const MenuStyle = styled.div`
   height: 100px;
-  /* width: 500px; */
-  /* background-color: yellowgreen; */
   display: flex;
   align-items: center;
   @media screen and (max-width: 992px) {
-    background-color: yellow;
+    /* background-color: yellow; */
     position: absolute;
     right: 0;
     width: 300px;
@@ -26,18 +24,21 @@ const ItemContentStyle = styled.div`
   display: flex;
   align-items: center;
 
-  
   @media screen and (max-width: 992px) {
     width: 100%;
     height: 50px;
     justify-content: center;
-
+    transition: transform 0.5s ease-in-out;
     ${(props) =>
-      props.$estadoMenu &&
-      css`
-        background-color: red;
-        display: none;
-      `}
+      !props.$estadoMenu
+        ? css`
+            
+          `
+        : css`
+
+            transform: translateX(100%);
+
+          `}
   }
 `;
 
@@ -56,11 +57,6 @@ const ItemTitleStyle = styled.a`
   &:hover {
     background-color: var(--color-azure);
     color: var(--color-oxfordBlue);
-  }
-  @media screen and (max-width: 992px) {
-    width: 100%;
-    justify-content: center;
-    background-color: blue;
   }
 
   ${(props) =>
@@ -97,12 +93,32 @@ const ItemTitleStyle = styled.a`
         color: var(--color-azure);
       }
     `}
+
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    justify-content: center;
+    border: none;
+    background-color: var(--color-hookersGreen);
+    &:hover {
+      background-color: var(--color-azure);
+      color: var(--color-hookersGreen);
+    }
+    ${(props) =>
+      props.$isLast &&
+      css`
+        background-color: var(--color-hookersGreen);
+        color: var(--color-azure);
+        &:hover {
+          background-color: var(--color-azure);
+          color: var(--color-hookersGreen);
+        }
+      `}
+  }
 `;
 
 const Menu = ({ data, desktop }) => {
-  console.log(desktop);
-
   const [estado, setEstado] = useState(true);
+  console.log("estado", estado);
   const togleEstado = () => {
     setEstado(!estado);
   };
