@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 
 import OpenMenu from "../../../assets/icons/menu.svg";
@@ -12,6 +12,13 @@ const IconMenuStyle = styled.div`
   align-items: center;
   justify-content: end;
   padding-right: 2rem;
+
+  ${(props) =>
+    !props.$estado &&
+    css`
+      background-color: var(--color-darkBrown);
+      border-bottom: 2px solid var(--color-azure);
+    `}
 `;
 
 const IconMenuImgStyle = styled.img`
@@ -22,7 +29,7 @@ const IconMenuImgStyle = styled.img`
 
 const IconMenu = ({ estado, onClick }) => {
   return (
-    <IconMenuStyle>
+    <IconMenuStyle $estado={estado}>
       {estado ? (
         <IconMenuImgStyle src={OpenMenu} onClick={onClick} />
       ) : (

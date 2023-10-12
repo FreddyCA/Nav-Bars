@@ -7,6 +7,8 @@ const MenuStyle = styled.div`
   height: 100px;
   display: flex;
   align-items: center;
+  z-index: 20;
+
   @media screen and (max-width: 992px) {
     width: 300px;
     position: absolute;

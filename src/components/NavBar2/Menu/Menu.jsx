@@ -1,24 +1,26 @@
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import IconMenu from "../IconMenu/IconMenu";
 
 const MenuStyle = styled.div`
   height: 100px;
   display: flex;
   align-items: center;
+  z-index: 10;
   @media screen and (max-width: 992px) {
-    /* background-color: yellow; */
     position: absolute;
     right: 0;
     width: 300px;
     height: auto;
     flex-direction: column;
   }
+  @media screen and (max-width: 576px) {
+    width: 200px;
+  }
 `;
 
 const ItemContentStyle = styled.div`
-  /* background-color: turquoise; */
   height: 70px;
   margin: 0 0.5rem;
   display: flex;
@@ -28,17 +30,45 @@ const ItemContentStyle = styled.div`
     width: 100%;
     height: 50px;
     justify-content: center;
-    transition: transform 0.5s ease-in-out;
+    box-shadow: 5px 10px 15px rgba(0, 0, 0, 0.5);
+
     ${(props) =>
-      !props.$estadoMenu
+      props.$estadoMenu
         ? css`
-            
+            display: none;
           `
         : css`
-
-            transform: translateX(100%);
-
+            display: flex;
+            &:nth-child(2) {
+              animation: slideInRight 0.25s forwards;
+            }
+            &:nth-child(3) {
+              animation: slideInRight 0.5s forwards;
+            }
+            &:nth-child(4) {
+              animation: slideInRight 0.75s forwards;
+            }
+            &:nth-child(5) {
+              animation: slideInRight 1s forwards;
+            }
+            &:nth-child(6) {
+              animation: slideInRight 1.25s forwards;
+            }
+            &:nth-child(7) {
+              animation: slideInRight 1.5s forwards;
+            }
           `}
+  }
+
+  @keyframes slideInRight {
+    from {
+      transform: translateX(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
   }
 `;
 
@@ -58,7 +88,6 @@ const ItemTitleStyle = styled.a`
     background-color: var(--color-azure);
     color: var(--color-oxfordBlue);
   }
-
   ${(props) =>
     props.$isLast &&
     css`
@@ -97,20 +126,47 @@ const ItemTitleStyle = styled.a`
   @media screen and (max-width: 992px) {
     width: 100%;
     justify-content: center;
+    font-weight: 400;
     border: none;
-    background-color: var(--color-hookersGreen);
-    &:hover {
+    background-color: var(--color-darkBrown);
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      width: 0;
+      height: 2px;
+      left: 50%;
       background-color: var(--color-azure);
-      color: var(--color-hookersGreen);
+      transition: width 0.4s ease;
+    }
+    &::before {
+      top: 0;
+      transform: translateX(-50%);
+    }
+    &::after {
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+    &:hover::before,
+    &:hover::after {
+      width: 100%;
+    }
+    &:hover {
+      background-color: transparent;
+      color: var(--color-azure);
+    }
+    &:hover {
+      background-color: var(--color-hookersGreen);
+      color: var(--color-azure);
     }
     ${(props) =>
       props.$isLast &&
       css`
-        background-color: var(--color-hookersGreen);
+        background-color: var(--color-darkBrown);
         color: var(--color-azure);
         &:hover {
-          background-color: var(--color-azure);
-          color: var(--color-hookersGreen);
+          background-color: var(--color-hookersGreen);
+          color: var(--color-azure);
         }
       `}
   }
@@ -118,17 +174,40 @@ const ItemTitleStyle = styled.a`
 
 const Menu = ({ data, desktop }) => {
   const [estado, setEstado] = useState(true);
-  console.log("estado", estado);
+
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const closeMenuClick = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setEstado(true);
+      }
+    };
+    document.addEventListener("click", closeMenuClick);
+    return () => {
+      document.removeEventListener("click", closeMenuClick);
+    };
+  }, []);
+
   const togleEstado = () => {
     setEstado(!estado);
   };
+
+  const closeMenu = () => {
+    setEstado(!estado);
+  };
+
   return (
-    <MenuStyle>
+    <MenuStyle ref={menuRef}>
       {!desktop && <IconMenu onClick={togleEstado} estado={estado} />}
 
       {data.map((item, index) => (
         <ItemContentStyle key={index} $estadoMenu={estado}>
-          <ItemTitleStyle $isLast={index === data.length - 1} href={item.url}>
+          <ItemTitleStyle
+            $isLast={index === data.length - 1}
+            href={item.url}
+            onClick={closeMenu}
+          >
             {item.title}
           </ItemTitleStyle>
         </ItemContentStyle>
